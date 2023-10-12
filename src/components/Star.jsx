@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
 
+// * span tag star number
+const spanStyle = {
+  position: 'absolute',
+  right: 0,
+};
+
 // * star icon styling
 const star = {
   height: '30px',
@@ -43,21 +49,41 @@ const fullStarIcon = (
 // * star icon container
 const starContainer = {
   display: 'flex',
-  gap: '10px',
+
+  gap: '20px',
+
+  position: 'relative',
+};
+
+// * inner container of star container
+const innerContainer = {
+  minWidth: '200px',
 };
 
 const Star = ({ length }) => {
   // * useState to extract clicked value from stars
-  const [rating, setRating] = useState(1);
+  const [rating, setRating] = useState(0);
+
+  // * useState to add hover effect
+  const [temporaryRating, setTemporaryRating] = useState(0);
 
   return (
     <div style={starContainer}>
-      {Array.from({ length: length }, (_, i) => (
-        <span onClick={() => setRating(i + 1)} key={i + 1}>
-          {rating >= i + 1 ? fullStarIcon : emptyStartIcon}
-        </span>
-      ))}
-      <span>{rating || ''}</span>
+      <div style={innerContainer}>
+        {Array.from({ length: length }, (_, i) => (
+          <span
+            onClick={() => setRating(i + 1)}
+            onMouseEnter={() => setTemporaryRating(i + 1)}
+            onMouseLeave={() => setTemporaryRating(0)}
+            key={i + 1}
+          >
+            {temporaryRating >= i + 1 || rating >= i + 1
+              ? fullStarIcon
+              : emptyStartIcon}
+          </span>
+        ))}
+      </div>
+      <span style={spanStyle}>{temporaryRating || rating || ''}</span>
     </div>
   );
 };
