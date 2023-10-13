@@ -1,5 +1,28 @@
 import React, { useState } from 'react';
 
+// * PropTypes package
+import PropTypes from 'prop-types';
+
+/**
+ * ? prop types
+ * * with prop types we can specify
+ * * the type of value that we expect
+ * * the consumer of the component to
+ * * pass in for each of the props
+ *
+ * ! if we really want to get serious with type
+ * ! checking it is recommended to use typeScript
+ *
+ * ! note: we only do it if it's important for our app
+ * ! developers don't use this anymore
+ *
+ * ? but lets use react's built in propTypes
+ * * we need to import prop type obj from the PropTypes package
+ * * you can see on line no. 4 we have imported it
+ * ! note: we don't need to install this package as create react app come with this
+ * ! But we do need to import it as shown on line no. 4 as it is separate package from react
+ */
+
 const Star = ({
   length = 5,
   color = '#fcc419',
@@ -8,6 +31,14 @@ const Star = ({
   defaultRating = 0,
   movieRatingLength = 0,
 }) => {
+  Star.propTypes = {
+    length: PropTypes.number,
+    color: PropTypes.string,
+    starSize: PropTypes.number,
+    messages: PropTypes.array,
+    defaultRating: PropTypes.number,
+  };
+
   // * star icon styling
   const star = {
     height: `${starSize}px`,
